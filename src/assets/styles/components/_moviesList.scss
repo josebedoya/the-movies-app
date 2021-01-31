@@ -1,0 +1,51 @@
+.moviesList {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.ant-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 12px;
+  .ant-card-body {
+    padding: 0;
+  }
+  .info {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background-color: rgba(#000, 0.8);
+    color: #fff;
+    h3 {
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    span.release-date {
+      font-weight: 700;
+      margin-bottom: 30px;
+      display: block;
+      color: #ddd;
+      time {
+        font-weight: 300;
+      }
+    }
+    span.close {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+      border-radius: 100%;
+      color: #000;
+      font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

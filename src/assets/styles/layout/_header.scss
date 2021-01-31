@@ -1,0 +1,39 @@
+.header {
+  background-color: $header-bg-color;
+  position: fixed;
+  width: 100%;
+  z-index: 30;
+  height: 60px;
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #999;
+  }
+  ul {
+    display: flex;
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    li {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    a {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: transparent;
+  a {
+    color: #ffcc00;
+  }
+}

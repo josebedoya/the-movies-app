@@ -1,0 +1,53 @@
+
+/*
+| -------------------------------------------------------------------
+| Layout Structure
+| -------------------------------------------------------------------
+*/
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr max-content;
+  grid-template-areas:
+    'content'
+    'footer';
+  height: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.main-content {
+  grid-area: content;
+}
+.footer {
+  grid-area: footer;
+}
+
+/**/
+
+.header,
+.main-content,
+.footer {
+  display: grid;
+  grid-template-columns: 1fr 50px 1140px 50px 1fr;
+}
+
+.header {
+  .header-inner {
+    grid-column: 2 / -2;
+  }
+}
+
+.main-content {
+  grid-row: 1 / 2;
+  overflow: hidden;
+  > * {
+    grid-column: 2 / -2;
+  }
+}
+
+.footer {
+  .footer-inner {
+    grid-column: 2 / -2;
+  }
+}
