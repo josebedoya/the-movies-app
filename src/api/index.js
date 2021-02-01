@@ -14,6 +14,7 @@ export const fetchTop5Movies = async () => {
     const response = await MockyAPI.get('/5dc3c053300000540034757b');
     return response.data.movies;
   } catch (err) {
+    console.log(err.message);
     return err;
   }
 };

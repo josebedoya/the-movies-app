@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { Form, Col, Row, Input, DatePicker, Button } from 'antd';
 import moment from 'moment';
 import { DataContext } from '../../../context/DataContext';
@@ -10,6 +11,7 @@ const MovieForm = ({ closeDrawer }) => {
   const { setMovies } = useContext(DataContext);
   const [image64, setImage64] = useState('');
   const [hasImage, setHasImage] = useState(null);
+  const history = useHistory();
 
   const onFinish = values => {
     const { title, release, description } = values;
@@ -35,6 +37,7 @@ const MovieForm = ({ closeDrawer }) => {
     setMovies(myMoviesParse);
     //
     closeDrawer();
+    history.push('/');
   };
 
   const onFinishFailed = () => {

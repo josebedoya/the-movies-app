@@ -1,15 +1,21 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import MovieItem from '../../components/MovieItem';
 import { DataContext } from '../../context/DataContext';
 import MovieDetail from './components/MovieDetail';
 
 const MoviesPage = () => {
-  const { movies } = useContext(DataContext);
+  const { movies, setMovies } = useContext(DataContext);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-  const handleDelete = id => {
-    console.log('deleted');
+  const handleDelete = payload => {
+    const newMovies = movies.filter(movie => movie.title !== payload.title)
+    setMovies(newMovies);
+    localStorage.setItem('myMovies', JSON.stringify(newMovies));
   };
+
+  useEffect(() => {
+    setSelectedMovie(false);
+  }, [movies])
 
   return (
     <div className='home'>
@@ -19,7 +25,7 @@ const MoviesPage = () => {
             key={movie.title}
             title={movie.title}
             release={movie.release}
-            handleDelete={handleDelete}
+            handleDelete={() => handleDelete(movie)}
             active={movie === selectedMovie}
             onClick={() => setSelectedMovie(movie)}
           />
@@ -30,8 +36,8 @@ const MoviesPage = () => {
           <MovieDetail
             title={selectedMovie.title}
             release={selectedMovie.release}
-            image='https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_UX182_CR0,0,182,268_AL_.jpg'
-            description="After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe."
+            image={selectedMovie.image}
+            description={selectedMovie.description}
           />
         )}
       </main>
