@@ -31,7 +31,7 @@ CardMovie.propTypes = {
   title: PropTypes.string.isRequired,
   release: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
 };
 
 export default CardMovie;

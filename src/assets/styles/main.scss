@@ -14,4 +14,9 @@
   './layout/content',
   './layout/footer';
 
-@import './components/moviesList';
+@import
+  './components/moviesList',
+  './components/movieItem';
+
+@import
+  './pages/home';

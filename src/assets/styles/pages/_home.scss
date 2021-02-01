@@ -1,0 +1,13 @@
+.home {
+  display: flex;
+  height: 100%;
+  aside {
+    width: 260px;
+    height: 100%;
+    box-shadow: 1px 0 0 0 rgba(#000, 0.04);
+  }
+  main {
+    width: calc(100% - 260px);
+    min-width: calc(100% - 260px);
+  }
+}

@@ -1,7 +1,7 @@
 import { Switch } from 'react-router-dom';
 
 import MainRoute from './MainRoute';
-import MoviesPage from '../../containers/MoviesPage';
+import MoviesPage from '../../containers/MoviesPage/MoviesPage';
 import TopMoviesPage from '../../containers/TopMoviesPage';
 
 export const PagesRoute = () => {
