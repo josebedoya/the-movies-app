@@ -58,6 +58,12 @@
   .ant-card-body {
     display: flex;
   }
+  //
+  @media only screen and (max-width: 830px) {
+    .ant-card-body {
+      flex-direction: column;
+    }
+  }
 }
 .movie-info-detail {
   margin: 20px 0 0 20px;

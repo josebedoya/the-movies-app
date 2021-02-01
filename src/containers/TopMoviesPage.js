@@ -13,7 +13,7 @@ const TopMoviesPage = () => {
 
   if (moviesTop5.length === 0) return <div>Loading...</div>;
   return (
-    <>
+    <div className='top5'>
       <h1>Top 5 Movies</h1>
       <div className='moviesList'>
         {moviesTop5.map(movie => (
@@ -26,7 +26,7 @@ const TopMoviesPage = () => {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
