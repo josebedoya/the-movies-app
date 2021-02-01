@@ -1,25 +1,31 @@
+import { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Form, Col, Row, Input, DatePicker, Button } from 'antd';
 import moment from 'moment';
+import { DataContext } from '../../../context/DataContext';
 
 const releaseDateFormat = 'MM/DD/YYYY';
 
 const MovieForm = ({ closeDrawer }) => {
+  const { setMovies } = useContext(DataContext);
+
   const onFinish = values => {
     const { title, release, description } = values;
     const releaseString = moment(release).format('MM/DD/YYYY');
     const newMovie = {
-      'title': title,
+      title,
       'release': releaseString,
-      'description': description
+      description
     }
     if (localStorage.getItem('myMovies') === null) {
       localStorage.setItem('myMovies', '[]');
     }
     //
-    const oldData = JSON.parse(localStorage.getItem('myMovies'));
-    oldData.push(newMovie);
+    const myMoviesParse = JSON.parse(localStorage.getItem('myMovies'));
+    myMoviesParse.push(newMovie);
     //
-    localStorage.setItem('myMovies', JSON.stringify(oldData));
+    localStorage.setItem('myMovies', JSON.stringify(myMoviesParse));
+    setMovies(myMoviesParse);
     //
     closeDrawer();
   };
@@ -54,7 +60,16 @@ const MovieForm = ({ closeDrawer }) => {
       </Row>
       <Row gutter={16}>
         <Col span={24}>
-          <Form.Item name='release' label='Release Date'>
+          <Form.Item
+            name='release'
+            label='Release Date'
+            rules={[
+              {
+                required: true,
+                message: 'Please choose a release date'
+              }
+            ]}
+          >
             <DatePicker format={releaseDateFormat} />
           </Form.Item>
         </Col>
@@ -69,7 +84,7 @@ const MovieForm = ({ closeDrawer }) => {
       <Row gutter={16}>
         <Col span={24}>
           <Button
-            // onClick={() => setShowDrawer(false)}
+            onClick={() => closeDrawer()}
             style={{ marginRight: 8 }}
           >
             Cancel
@@ -87,5 +102,9 @@ const MovieForm = ({ closeDrawer }) => {
     </Form>
   );
 };
+
+MovieForm.propTypes = {
+  closeDrawer: PropTypes.func.isRequired,
+}
 
 export default MovieForm;

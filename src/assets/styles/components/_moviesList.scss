@@ -49,3 +49,16 @@
     }
   }
 }
+
+.movie-detail {
+  &.ant-card {
+    margin: 0;
+    padding: 30px;
+  }
+  .ant-card-body {
+    display: flex;
+  }
+}
+.movie-info-detail {
+  margin: 20px 0 0 20px;
+}
