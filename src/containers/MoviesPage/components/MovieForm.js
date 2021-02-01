@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Col, Row, Input, DatePicker, Button } from 'antd';
 import moment from 'moment';
@@ -8,15 +8,22 @@ const releaseDateFormat = 'MM/DD/YYYY';
 
 const MovieForm = ({ closeDrawer }) => {
   const { setMovies } = useContext(DataContext);
+  const [image64, setImage64] = useState('');
+  const [hasImage, setHasImage] = useState(null);
 
   const onFinish = values => {
     const { title, release, description } = values;
     const releaseString = moment(release).format('MM/DD/YYYY');
+    if (image64 === '') {
+      setHasImage(false);
+      return;
+    }
     const newMovie = {
       title,
-      'release': releaseString,
-      description
-    }
+      release: releaseString,
+      description,
+      image: image64,
+    };
     if (localStorage.getItem('myMovies') === null) {
       localStorage.setItem('myMovies', '[]');
     }
@@ -30,8 +37,19 @@ const MovieForm = ({ closeDrawer }) => {
     closeDrawer();
   };
 
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
+  const onFinishFailed = () => {
+    if (image64 === '') setHasImage(false);
+  };
+
+  const previewFile = e => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImage64(reader.result);
+      setHasImage(true);
+    };
   };
 
   return (
@@ -45,7 +63,7 @@ const MovieForm = ({ closeDrawer }) => {
         <Col span={24}>
           <Form.Item
             name='title'
-            label='Title'
+            label='Movie Title'
             rules={[
               {
                 required: true,
@@ -66,8 +84,8 @@ const MovieForm = ({ closeDrawer }) => {
             rules={[
               {
                 required: true,
-                message: 'Please choose a release date'
-              }
+                message: 'Please choose a release date',
+              },
             ]}
           >
             <DatePicker format={releaseDateFormat} />
@@ -76,17 +94,31 @@ const MovieForm = ({ closeDrawer }) => {
       </Row>
       <Row gutter={16}>
         <Col span={24}>
-          <Form.Item name='description' label='Description'>
-            <Input.TextArea />
+          <Form.Item label='Movie Image'>
+            <input
+              type='file'
+              onChange={e => previewFile(e)}
+              accept='.gif,.jpg,.jpeg,.png'
+            />
+            {image64 !== '' && (
+              <img src={image64} width='100' alt='Movie poster' />
+            )}
+            {hasImage === false && (
+              <div role='alert' style={{ color: '#ff4d4f' }}>Movie Image is required</div>
+            )}
           </Form.Item>
         </Col>
       </Row>
       <Row gutter={16}>
         <Col span={24}>
-          <Button
-            onClick={() => closeDrawer()}
-            style={{ marginRight: 8 }}
-          >
+          <Form.Item name='description' label='Description'>
+            <Input.TextArea rows={10} />
+          </Form.Item>
+        </Col>
+      </Row>
+      <Row gutter={16}>
+        <Col span={24}>
+          <Button onClick={() => closeDrawer()} style={{ marginRight: 8 }}>
             Cancel
           </Button>
           <Button
@@ -105,6 +137,6 @@ const MovieForm = ({ closeDrawer }) => {
 
 MovieForm.propTypes = {
   closeDrawer: PropTypes.func.isRequired,
-}
+};
 
 export default MovieForm;
