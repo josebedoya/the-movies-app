@@ -18,7 +18,7 @@ const MovieItem = ({ title, release, handleDelete, active, onClick }) => {
           title={`Delete "${title}" movie?`}
           onConfirm={() => handleDelete()}
         >
-          <DeleteTwoTone twoToneColor='#ad343e' />
+          <DeleteTwoTone twoToneColor='#ad343e' alt="delete" />
         </Popconfirm>
       </div>
     </div>

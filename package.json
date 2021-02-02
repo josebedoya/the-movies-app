@@ -5,9 +5,10 @@
   "dependencies": {
     "@ant-design/icons": "^4.4.0",
     "@craco/craco": "^6.1.0",
+    "@testing-library/dom": "^7.29.4",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
-    "@testing-library/user-event": "^12.6.2",
+    "@testing-library/user-event": "^12.6.3",
     "antd": "^4.11.2",
     "axios": "^0.21.1",
     "craco-less": "^1.17.1",

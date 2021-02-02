@@ -11,6 +11,7 @@ const MovieForm = ({ closeDrawer }) => {
   const { setMovies } = useContext(DataContext);
   const [image64, setImage64] = useState('');
   const [hasImage, setHasImage] = useState(null);
+  const [isDuplicated, setIsDuplicated] = useState(false);
   const history = useHistory();
 
   const onFinish = values => {
@@ -31,6 +32,12 @@ const MovieForm = ({ closeDrawer }) => {
     }
     //
     const myMoviesParse = JSON.parse(localStorage.getItem('myMovies'));
+    const isMovieDuplicated = myMoviesParse.some(movie => movie.title.toLowerCase().trim() === title.toLowerCase().trim());
+    if (isMovieDuplicated) {
+      setIsDuplicated(true);
+      return;
+    }
+    setIsDuplicated(false);
     myMoviesParse.push(newMovie);
     //
     localStorage.setItem('myMovies', JSON.stringify(myMoviesParse));
@@ -134,6 +141,13 @@ const MovieForm = ({ closeDrawer }) => {
           </Button>
         </Col>
       </Row>
+      {isDuplicated && (
+        <Row gutter={16}>
+          <Col span={24}>
+            <div role='alert' style={{ color: '#ff4d4f' }}>Movie already exists</div>
+          </Col>
+        </Row>
+      )}
     </Form>
   );
 };
